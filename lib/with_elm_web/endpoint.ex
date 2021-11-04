@@ -19,8 +19,7 @@ defmodule WithElmWeb.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :with_elm,
-    gzip: false,
-    only: ~w(assets fonts images favicon.ico robots.txt elm.js)
+    gzip: false
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

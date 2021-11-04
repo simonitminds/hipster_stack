@@ -2,7 +2,6 @@ module Main exposing (Model, Msg, init, main, subscriptions, view)
 
 import Browser exposing (Document)
 import Browser.Navigation as Nav
-import Debug exposing (toString)
 import Graphql exposing (Response, query)
 import Graphql.Http
 import Html exposing (..)
@@ -103,7 +102,7 @@ view model =
                 div [] [ text "some this" ]
 
             Failure err ->
-                div [] [ text (Debug.toString err) ]
+                div [] [ text "some error" ]
 
             Success a ->
                 div []
@@ -119,10 +118,10 @@ view model =
                                         , text
                                             (case l.likes of
                                                 Just amount_likes ->
-                                                    toString amount_likes
+                                                    String.fromInt amount_likes
 
                                                 Nothing ->
-                                                    "No likes yet"
+                                                    "0"
                                             )
                                         ]
                                 )

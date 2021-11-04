@@ -29,7 +29,7 @@ config :with_elm, WithElmWeb.Endpoint,
     elm: [
       "make",
       "src/Main.elm",
-      "--output=../priv/static/elm.js",
+      "--output=../priv/static/assets/elm.js",
       cd: Path.expand("../assets", __DIR__)
     ]
   ]
