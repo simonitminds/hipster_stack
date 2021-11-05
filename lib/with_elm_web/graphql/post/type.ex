@@ -1,4 +1,4 @@
-defmodule WithElmWeb.Graphql.Post do
+defmodule WithElmWeb.Graphql.Post.Type do
   use Absinthe.Schema.Notation
 
   @desc "A post"
@@ -9,5 +9,6 @@ defmodule WithElmWeb.Graphql.Post do
     field :content, non_null(:string)
 
     field :likes, :integer
+    field :id, :id
   end
 end
