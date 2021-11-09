@@ -9,6 +9,13 @@ defmodule WithElmWeb.Graphql.Post.Type do
     field :content, non_null(:string)
 
     field :likes, :integer
+
     field :id, :id
+  end
+
+  @desc "an indsustry"
+  object :industry do
+    field :title, non_null(:string)
+    field :is_automotive, non_null(:boolean)
   end
 end

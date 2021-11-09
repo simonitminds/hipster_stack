@@ -4,7 +4,7 @@ defmodule WithElm.Content.Post do
 
   schema "posts" do
     field :content, :string
-    field :likes, :integer
+    field :likes, :integer, default: 0
     field :title, :string
 
     timestamps()

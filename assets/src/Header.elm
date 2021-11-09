@@ -1,55 +1,20 @@
-module Header exposing (..)
+module Header exposing (layout)
 
-import Browser
-import Html exposing (..)
-
-
-main : Program flags Model Msg
-main =
-    Browser.document
-        { init = init
-        , view = view
-        , update = update
-        , subscriptions = subscriptions
-        }
+import Html exposing (Html, div)
+import Html.Attributes exposing (class)
 
 
-type alias Model =
-    { property : Int
-    , property2 : String
-    }
-
-
-init : flags -> ( Model, Cmd Msg )
-init flags =
-    ( Model 0 "modelInitialValue", Cmd.none )
-
-
-type Msg
-    = Msg1
-    | Msg2
-
-
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
-    case msg of
-        Msg1 ->
-            ( model, Cmd.none )
-
-        Msg2 ->
-            ( model, Cmd.none )
-
-
-subscriptions : Model -> Sub Msg
-subscriptions model =
-    Sub.none
-
-
-view : Model -> Browser.Document Msg
-view model =
-    { title = "Document Title"
-    , body =
-        [ div []
-            [ text "New Document" ]
+header : Html msg
+header =
+    div [ class "h-32 px-3 bg-blue-400 w-screen flex flex-row items-center justify-between" ]
+        [ div [ class "rounded-full p-3 h-8 w-8 bg-blue-800" ] []
+        , div [ class "rounded-full p-3 h-8 w-8 bg-blue-300" ] []
         ]
-    }
+
+
+layout : List (Html msg) -> Html msg
+layout toR =
+    div []
+        [ header
+        , div [] toR
+        ]

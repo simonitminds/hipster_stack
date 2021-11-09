@@ -17,5 +17,9 @@ defmodule WithElmWeb.Graphql.Post.Queries do
         {:ok, Content.get_post!(item_id)}
       end)
     end
+
+    field :industries, list_of(non_null(:industry)) do
+      resolve(&Resolvers.Industry.list_industries/4)
+    end
   end
 end

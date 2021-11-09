@@ -1,6 +1,7 @@
 defmodule WithElmWeb.Graphql.Post.Mutations do
   use Absinthe.Schema.Notation
   alias WithElm.Content
+  alias WithElm.Industries
 
   @desc "The muts"
   object :post_mutations do
@@ -32,6 +33,15 @@ defmodule WithElmWeb.Graphql.Post.Mutations do
       resolve(fn data, _ ->
         post = Content.get_post(data.id)
         delete_post(post)
+      end)
+    end
+
+    field :industry_create, :industry do
+      arg(:title, non_null(:string))
+      arg(:is_automotive, non_null(:boolean))
+
+      resolve(fn data, _ ->
+        Industries.create_industry(data)
       end)
     end
   end

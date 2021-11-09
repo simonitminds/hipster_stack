@@ -2,10 +2,12 @@ module Main exposing (Model, Msg, init, main, subscriptions, view)
 
 import Browser exposing (Document)
 import Browser.Navigation as Nav
-import Graphql exposing (Response, query)
+import Graphql exposing (Post, Response, query)
 import Graphql.Http
+import Header as VH
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import List exposing (head)
 import RemoteData exposing (RemoteData(..))
 import Url
 
@@ -94,47 +96,53 @@ view : Model -> Document Msg
 view model =
     { title = "a page"
     , body =
-        [ case model.res of
-            NotAsked ->
-                div [] [ text "real shit" ]
-
-            Loading ->
-                div [] [ text "some this" ]
-
-            Failure err ->
-                div [] [ text "some error" ]
-
-            Success a ->
-                div []
-                    [ div []
-                        (a
-                            |> List.map
-                                (\l ->
-                                    div [ class "font-bold" ]
-                                        [ text l.title
-                                        , text " - "
-                                        , text l.content
-                                        , text ". Amount of likes: "
-                                        , text
-                                            (case l.likes of
-                                                Just amount_likes ->
-                                                    String.fromInt amount_likes
-
-                                                Nothing ->
-                                                    "0"
-                                            )
-                                        ]
-                                )
-                        )
-                    , text "The link is: "
-                    , b [] [ text (Url.toString model.url) ]
-                    , ul []
-                        [ viewLink "/donger"
-                        , viewLink "/very/nice"
-                        ]
-                    ]
+        [ VH.layout (body model)
         ]
     }
+
+
+body : Model -> List (Html Msg)
+body model =
+    [ case model.res of
+        NotAsked ->
+            div [] [ text "real shit" ]
+
+        Loading ->
+            div [] [ text "some this" ]
+
+        Failure err ->
+            div [] [ text "some error" ]
+
+        Success a ->
+            div [ class "bg-gray" ]
+                [ div []
+                    (a
+                        |> List.map
+                            (\l ->
+                                div [ class "font-bold" ]
+                                    [ text l.title
+                                    , text " - "
+                                    , text l.content
+                                    , text ". Amount of likes: "
+                                    , text
+                                        (case l.likes of
+                                            Just amount_likes ->
+                                                String.fromInt amount_likes
+
+                                            Nothing ->
+                                                "0"
+                                        )
+                                    ]
+                            )
+                    )
+                , text "The link is: "
+                , b [] [ text (Url.toString model.url) ]
+                , ul []
+                    [ viewLink "/donger"
+                    , viewLink "/very/nice"
+                    ]
+                ]
+    ]
 
 
 viewLink : String -> Html msg
